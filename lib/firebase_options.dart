@@ -64,7 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '770472432247',
     projectId: 'fir-dd6df',
     storageBucket: 'fir-dd6df.firebasestorage.app',
-    iosClientId: '770472432247-dtd95m1vlpmot9hjsulelruvm7i51fis.apps.googleusercontent.com',
+    iosClientId:
+        '770472432247-dtd95m1vlpmot9hjsulelruvm7i51fis.apps.googleusercontent.com',
     iosBundleId: 'com.example.app',
   );
 
@@ -74,7 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '770472432247',
     projectId: 'fir-dd6df',
     storageBucket: 'fir-dd6df.firebasestorage.app',
-    iosClientId: '770472432247-dtd95m1vlpmot9hjsulelruvm7i51fis.apps.googleusercontent.com',
+    iosClientId:
+        '770472432247-dtd95m1vlpmot9hjsulelruvm7i51fis.apps.googleusercontent.com',
     iosBundleId: 'com.example.app',
   );
 

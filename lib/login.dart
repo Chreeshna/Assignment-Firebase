@@ -3,6 +3,7 @@ import 'package:app/signup_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Login extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -177,18 +178,30 @@ class Login extends StatelessWidget {
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) return; // User canceled
+      if (kIsWeb) {
+        GoogleAuthProvider googleProvider = GoogleAuthProvider();
+        googleProvider.setCustomParameters({
+          'login_hint': 'user@example.com', // optional hint
+        });
 
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+        await FirebaseAuth.instance.signInWithPopup(googleProvider);
+      } else {
+        // Mobile sign-in using GoogleSignIn
+        final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+        if (googleUser == null) return; // User canceled
 
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
 
-      await _auth.signInWithCredential(credential);
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        await _auth.signInWithCredential(credential);
+      }
+
+      // Navigate to your original HomePage after login
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => HomePage()),
